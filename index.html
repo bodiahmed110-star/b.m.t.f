@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ترحيب B.M.T.F</title>
+    <style>
+        /* إعدادات الشاشة والخلفية المتحركة الهادية */
+        body { 
+            margin: 0; 
+            padding: 0;
+            background: linear-gradient(45deg, #020205, #051026, #020205);
+            background-size: 200% 200%;
+            animation: MoveBG 8s ease infinite;
+            color: #ffffff; 
+            font-family: sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            overflow: hidden;
+        }
+
+        @keyframes MoveBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* شاشة الترحيب (بدون أي مربع أو حدود) */
+        #welcome-screen { 
+            text-align: center; 
+            width: 100%; 
+            padding: 20px;
+            opacity: 1;
+            transition: opacity 0.8s ease; /* تأثير التلاشي عند الخروج */
+        }
+        
+        /* الترحيب باللون اللبني المضيء */
+        h1 { 
+            color: #00d2ff; 
+            font-size: 1.8rem; 
+            margin: 0 0 25px 0; 
+            text-shadow: 0 0 10px rgba(0, 210, 255, 0.4); 
+        }
+        
+        /* اسم الرئيس باللون الذهبي */
+        .info { 
+            font-size: 1.4rem; 
+            color: #ffd700; 
+            margin-bottom: 15px; 
+            font-weight: bold;
+        }
+        
+        /* المطور باللون الأحمر وحجم أصغر */
+        .dev-info { 
+            font-size: 1rem; 
+            color: #ff3333; 
+            margin-bottom: 40px; 
+            font-weight: bold;
+        }
+        
+        /* زر الدخول باللون الأزرق الغامق */
+        .enter-btn { 
+            background: #001f3f; 
+            color: #ffffff; 
+            padding: 14px 45px; 
+            border: 2px solid #004080; 
+            border-radius: 8px; 
+            font-size: 1.1rem; 
+            font-weight: bold;
+            cursor: pointer; 
+            transition: 0.3s;
+        }
+        
+        .enter-btn:hover { 
+            background: #002b59; 
+            border-color: #00d2ff;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="welcome-screen">
+        <h1>مرحباً بك فى موقع اتحاد B.M.T.F</h1>
+        <div class="info">رئيس الاتحاد » محمد شهاب [ ميدو ]</div>
+        <div class="dev-info">المطور » 3bdo a7med</div>
+        <button class="enter-btn" onclick="enterSite()">دخول إلى الموقع ></button>
+    </div>
+
+    <script>
+        function enterSite() {
+            // تفعيل التلاشي فوراً عند الضغط
+            document.getElementById('welcome-screen').style.opacity = '0';
+            
+            // الانتظار ثانية حتى يكتمل التلاشي ثم الانتقال
+            setTimeout(() => {
+                window.location.href = 'main.html';
+            }, 800);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حامل البالون دور</title>
+    <style>
+        /* إعدادات الخلفية السوداء */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #000000;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* تأثير الشرائط الذهبية المتساقطة في الخلفية */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(212, 175, 55, 0) 0%, rgba(212, 175, 55, 0.05) 50%, rgba(212, 175, 55, 0) 100%),
+                        linear-gradient(90deg, rgba(212, 175, 55, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 100%;
+            pointer-events: none;
+            z-index: 0;
+            animation: rain 20s linear infinite;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin-top: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* تصميم المربع العريض باللون الذهبي اللامع الفخم */
+        .ballon-dor-card {
+            background: #0f0d05; /* أسود ملكي مائل للذهبي الداكن */
+            border: 2px solid #ffd700; /* ذهبي لامع خالص */
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3), inset 0 0 15px rgba(255, 215, 0, 0.1);
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            user-select: none;
+        }
+
+        /* لافتة الاسم مع الكرة الذهبية */
+        .winner-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px; /* مسافة بين الاسم والكرة */
+            transition: all 0.35s ease;
+        }
+
+        /* أيقونة الكرة الذهبية (استخدام رمز إيموجي مميز أو مخصص) */
+        .gold-ball {
+            font-size: 1.5rem;
+            filter: drop-shadow(0 0 5px #ffd700);
+            animation: rotateBall 6s linear infinite; /* دوران هادئ للكرة */
+            display: inline-block;
+        }
+
+        /* شارة حامل اللقب الأخير في اليسار */
+        .title-badge {
+            font-size: 0.95rem;
+            color: #000000;
+            background: linear-gradient(45deg, #ffd700, #b8860b);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            transition: all 0.35s ease;
+            white-space: nowrap;
+        }
+
+        /* التاج فوق المربع */
+        .crown-tag {
+            position: absolute;
+            top: -38px;
+            right: 30px;
+            font-size: 2.2rem;
+            filter: drop-shadow(0 2px 5px rgba(255, 215, 0, 0.5));
+            animation: bounce 2s infinite;
+        }
+
+        /* ================================================== */
+        /* تأثير الإشعاع باللون الزيتي النيون عند الضغط أو اللمس */
+        /* ================================================== */
+        .ballon-dor-card:hover, .ballon-dor-card:active {
+            border-color: #6b8e23; /* لون زيتي مضيء (OliveDrab) */
+            box-shadow: 0 0 30px rgba(107, 142, 35, 0.9), inset 0 0 10px rgba(107, 142, 35, 0.4);
+            background: #080b04; /* خلفية زيتية داكنة جداً */
+            transform: scale(1.03); /* تأثير تكبير مرن */
+        }
+
+        .ballon-dor-card:hover .winner-name, .ballon-dor-card:active .winner-name {
+            color: #adff2f; /* الاسم يشع باللون الزيتي الفاتح المضيء */
+            text-shadow: 0 0 15px rgba(173, 255, 47, 0.8);
+        }
+
+        .ballon-dor-card:hover .title-badge, .ballon-dor-card:active .title-badge {
+            background: linear-gradient(45deg, #6b8e23, #556b2f); /* الشارة تتحول للزيتي */
+            color: #ffffff;
+            box-shadow: 0 0 15px #6b8e23;
+        }
+        /* ================================================== */
+
+        /* الأنميشن والحركات */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        @keyframes rotateBall {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes rain {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 1000px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="ballon-dor-card">
+        <div class="crown-tag">👑</div>
+        
+        <div class="winner-name">
+            <span>محمد الوفاقى</span>
+            <span class="gold-ball"></span> </div>
+        
+        <div class="title-badge">حامل البلندور </div>
+    </div>
+
+</div>
+
+</body>
+</html>

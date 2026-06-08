@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قائمة الأبطال - الثيم الأخضر والأصفر النيون</title>
+    <style>
+        /* إعدادات الخلفية السوداء */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #000000;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* تأثير الشرائط الخضراء النيون المتساقطة في الخلفية */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(57, 255, 20, 0) 0%, rgba(57, 255, 20, 0.04) 50%, rgba(57, 255, 20, 0) 100%),
+                        linear-gradient(90deg, rgba(57, 255, 20, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 100%;
+            pointer-events: none;
+            z-index: 0;
+            animation: rain 20s linear infinite;
+        }
+
+        /* حاوية تأثير الخطوط الطولية النيون */
+        .bg-lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.12;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .line {
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, #39ff14, transparent);
+            animation: drop 3.5s infinite linear;
+        }
+
+        .line:nth-child(1) { animation-delay: 0s; animation-duration: 4s; }
+        .line:nth-child(2) { animation-delay: 1.5s; animation-duration: 3s; }
+        .line:nth-child(3) { animation-delay: 0.5s; animation-duration: 5s; }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+            margin-top: 50px; /* مساحة علوية كافية للتاج */
+            position: relative;
+            z-index: 1;
+        }
+
+        /* تصميم المربع العريض باللون الأخضر النيون */
+        .player-card {
+            background: #020a01; /* أسود ملكي مائل للأخضر الداكن جداً */
+            border: 2px solid #39ff14; /* أخضر نيون ساطع */
+            border-radius: 10px;
+            padding: 16px 22px;
+            margin-bottom: 45px; /* مسافة كافية لمنع تداخل التيجان مع المربعات */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 0 12px rgba(57, 255, 20, 0.25), inset 0 0 8px rgba(57, 255, 20, 0.1);
+            position: relative;
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+            user-select: none;
+        }
+
+        /* لافتة الاسم باللون الأخضر المضيء */
+        .player-name {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #b3ffb3; /* أخضر فاتح مشع جداً */
+            text-shadow: 0 0 8px rgba(57, 255, 20, 0.5);
+            transition: all 0.35s ease;
+        }
+
+        /* شارة عدد البطولات في جهة اليسار */
+        .player-titles {
+            font-size: 0.95rem;
+            color: #000000;
+            background: #39ff14;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-weight: bold;
+            box-shadow: 0 0 8px #39ff14;
+            transition: all 0.35s ease;
+            white-space: nowrap;
+        }
+
+        /* التاج فوق المربع الأول والثاني */
+        .crown-tag {
+            position: absolute;
+            top: -38px;
+            right: 22px;
+            font-size: 1.9rem;
+            filter: drop-shadow(0 0 5px #39ff14);
+            animation: bounce 2s infinite;
+        }
+
+        /* تمييز المربع الأخير (حامل اللقب الأخير) */
+        .last-champion {
+            border-style: dashed; /* إطار متقطع مميز */
+        }
+
+        /* شارة حامل اللقب الأخير */
+        .champion-badge {
+            font-size: 0.85rem;
+            color: #000000;
+            background: #39ff14;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-right: 10px;
+            font-weight: bold;
+            display: inline-block;
+            box-shadow: 0 0 5px #39ff14;
+            transition: all 0.35s ease;
+        }
+
+        .star-icon {
+            color: #39ff14;
+            margin-right: 5px;
+            font-size: 1.15rem;
+            transition: all 0.35s ease;
+        }
+
+        /* ================================================== */
+        /* تأثير الإشعاع باللون الأصفر النيون عند الضغط أو اللمس */
+        /* ================================================== */
+        .player-card:hover, .player-card:active {
+            border-color: #ffff00; /* يتحول الإطار للأصفر النيون اللامع */
+            box-shadow: 0 0 25px rgba(255, 255, 0, 0.85), inset 0 0 10px rgba(255, 255, 0, 0.3);
+            background: #0f0f00; /* خلفية صفراء داكنة جداً للمربع */
+            transform: scale(1.025); /* تكبير مرن للتفاعل */
+        }
+
+        .player-card:hover .player-name, .player-card:active .player-name {
+            color: #ffffb3; /* الاسم يشع بالأصفر الفاتح */
+            text-shadow: 0 0 12px #ffff00;
+        }
+
+        .player-card:hover .player-titles, .player-card:active .player-titles {
+            background: #ffff00; /* شارة البطولات تتحول للأصفر */
+            color: #000000;
+            box-shadow: 0 0 12px #ffff00;
+        }
+
+        .player-card:hover .champion-badge, .player-card:active .champion-badge {
+            background: #ffff00; /* شارة بطل آخر نسخة تتحول للأصفر */
+            color: #000000;
+            box-shadow: 0 0 8px #ffff00;
+        }
+
+        .player-card:hover .star-icon, .player-card:active .star-icon {
+            color: #ffff00; /* النجمة تشع بالأصفر أيضاً */
+            text-shadow: 0 0 8px #ffff00;
+        }
+
+        /* تحويل لون التاج التفاعلي للأصفر أيضاً عند الضغط */
+        .player-card:hover .crown-tag, .player-card:active .crown-tag {
+            filter: drop-shadow(0 0 10px #ffff00) sepia(1) saturate(20) hue-rotate(20deg);
+        }
+        /* ================================================== */
+
+        /* الأنميشن وحركات الخلفية والتاج */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        @keyframes drop {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        @keyframes rain {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 1000px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-lines">
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+</div>
+
+<div class="container">
+
+    <div class="player-card">
+        <div class="crown-tag">👑</div>
+        <div class="player-name">محمد اسامة</div>
+        <div class="player-titles">بطولة واحدة</div>
+    </div>
+
+    <div class="player-card">
+        <div class="crown-tag">👑</div>
+        <div class="player-name">صهيب احمد</div>
+        <div class="player-titles">بطولة واحدة</div>
+    </div>
+
+    <div class="player-card last-champion">
+        <div class="player-name">
+            محمد عبده
+            <span class="champion-badge">حامل اللقب الاخير</span>
+            <span class="star-icon">⭐</span>
+        </div>
+        <div class="player-titles">بطولة واحدة</div>
+    </div>
+
+</div>
+
+</body>
+</html>

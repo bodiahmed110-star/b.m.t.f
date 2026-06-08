@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>واجهة الاتحاد B.M.T.F</title>
+    <style>
+        /* إعدادات الصفحة والخلفية السوداء */
+        * { box-sizing: border-box; }
+        body { 
+            margin: 0; padding: 0; 
+            background-color: #000000; 
+            color: #ffffff; 
+            font-family: sans-serif; 
+            min-height: 100vh; 
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* تأثير الخطوط الحمراء الكثيفة والسريعة في الخلفية */
+        .bg-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; pointer-events: none; opacity: 0.5;
+        }
+        .red-line {
+            position: absolute; top: -120px; width: 2px; height: 90px;
+            background: linear-gradient(to bottom, transparent, #ff0000);
+            animation: drop linear infinite;
+        }
+        
+        .line1 { left: 8%; animation-duration: 1.8s; animation-delay: 0s; }
+        .line2 { left: 18%; animation-duration: 2.2s; animation-delay: 0.5s; }
+        .line3 { left: 28%; animation-duration: 1.5s; animation-delay: 0.2s; }
+        .line4 { left: 38%; animation-duration: 2.5s; animation-delay: 0.8s; }
+        .line5 { left: 48%; animation-duration: 1.7s; animation-delay: 0.3s; }
+        .line6 { left: 58%; animation-duration: 2s; animation-delay: 0.6s; }
+        .line7 { left: 68%; animation-duration: 1.6s; animation-delay: 0.1s; }
+        .line8 { left: 78%; animation-duration: 2.4s; animation-delay: 0.9s; }
+        .line9 { left: 88%; animation-duration: 1.9s; animation-delay: 0.4s; }
+        .line10 { left: 95%; animation-duration: 2.1s; animation-delay: 0.7s; }
+
+        @keyframes drop {
+            0% { top: -120px; opacity: 0; }
+            30% { opacity: 1; }
+            100% { top: 100vh; opacity: 0; }
+        }
+
+        /* الهيدر واسم الاتحاد */
+        .header { text-align: center; padding: 40px 20px 0 20px; }
+        .union-name { 
+            font-size: 2.6rem; font-weight: 900; 
+            color: #ff0000; text-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+            margin: 0; 
+        }
+
+        /* كلمة رئيس الاتحاد */
+        .president-word {
+            background: rgba(15, 15, 15, 0.85); 
+            border-right: 4px solid #ffd700; 
+            padding: 20px; 
+            margin: 60px auto 50px auto; 
+            max-width: 600px; 
+            text-align: right;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.6);
+        }
+        .president-word h3 { 
+            color: #ffd700; 
+            margin: 0 0 10px 0; 
+            font-size: 1.25rem; 
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+        }
+        .president-word p { color: #dddddd; margin: 0; line-height: 1.6; font-size: 0.95rem; }
+
+        /* حاوية البطولات بنظام التناوب والأزرار */
+        .section-container {
+            width: 100%;
+            padding: 0 25px;
+            margin-bottom: 30px;
+            flex: 1;
+        }
+
+        /* كتل المحاذاة */
+        .block-right { text-align: right; margin-bottom: 45px; }
+        .block-left { text-align: left; margin-bottom: 45px; }
+        .block-center { text-align: center; margin-bottom: 55px; }
+        
+        /* التنسيق الأساسي المشترك للأزرار لتوحيد الحجم */
+        .btn-link { 
+            display: inline-block; 
+            padding: 12px 35px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            font-size: 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-align: center;
+            min-width: 220px;
+        }
+
+        /* زر دوري الأبطال (أحمر نيون) */
+        .btn-abtal { border: 2px solid #ff0000; color: #ff0000; box-shadow: 0 0 10px rgba(255, 0, 0, 0.2); }
+        .btn-abtal:hover { background: #ff0000; color: #fff; box-shadow: 0 0 20px rgba(255, 0, 0, 0.6); }
+
+        /* زر الدوري الأوروبي (أزرق نيون) */
+        .btn-euro { border: 2px solid #00d2ff; color: #00d2ff; box-shadow: 0 0 10px rgba(0, 210, 255, 0.2); }
+        .btn-euro:hover { background: #00d2ff; color: #000; box-shadow: 0 0 20px rgba(0, 210, 255, 0.6); }
+
+        /* زر كأس السوبر (ذهبي نيون) */
+        .btn-super { border: 2px solid #ffd700; color: #ffd700; box-shadow: 0 0 10px rgba(255, 215, 0, 0.2); }
+        .btn-super:hover { background: #ffd700; color: #000; box-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
+
+        /* زر أبطال الدوريات (بنفسجي نيون) */
+        .btn-dorey { border: 2px solid #df00ff; color: #df00ff; box-shadow: 0 0 10px rgba(223, 0, 255, 0.2); }
+        .btn-dorey:hover { background: #df00ff; color: #fff; box-shadow: 0 0 20px rgba(223, 0, 255, 0.6); }
+
+        /* زر أمم أفريقيا (أخضر نيون) */
+        .btn-monthbat { border: 2px solid #00ff66; color: #00ff66; box-shadow: 0 0 10px rgba(0, 255, 102, 0.2); }
+        .btn-monthbat:hover { background: #00ff66; color: #000; box-shadow: 0 0 20px rgba(0, 255, 102, 0.6); }
+
+        /* زر أمم أوروبا (برتقالي نيون) */
+        .btn-euroba { border: 2px solid #ff6600; color: #ff6600; box-shadow: 0 0 10px rgba(255, 102, 0, 0.2); }
+        .btn-euroba:hover { background: #ff6600; color: #fff; box-shadow: 0 0 20px rgba(255, 102, 0, 0.6); }
+
+        /* زر البطولات الرمضانية (أصفر نيون) */
+        .btn-ramdan { border: 2px solid #ffcc00; color: #ffcc00; box-shadow: 0 0 10px rgba(255, 204, 0, 0.2); }
+        .btn-ramdan:hover { background: #ffcc00; color: #000; box-shadow: 0 0 20px rgba(255, 204, 0, 0.6); }
+
+        /* زر الكرة الذهبية (إطار أزرق غامق) */
+        .btn-ballon-dor { border: 2px solid #0044ff; background: transparent; box-shadow: 0 0 10px rgba(0, 68, 255, 0.3); }
+        .btn-ballon-dor .text-white { color: #ffffff; }
+        .btn-ballon-dor .text-gold { color: #ffd700; text-shadow: 0 0 5px rgba(255, 215, 0, 0.6); }
+        .btn-ballon-dor:hover { background: rgba(0, 68, 255, 0.15); box-shadow: 0 0 20px rgba(0, 68, 255, 0.7); }
+
+        /* زر القوانين */
+        .btn-laws {
+            font-size: 1.2rem; padding: 15px 60px; min-width: 280px;
+            border: 3px solid #ff0000; color: #ff0000;
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+            animation: pulse-red 2s infinite alternate;
+        }
+        .btn-laws:hover { background: #ff0000; color: #ffffff; text-shadow: none; box-shadow: 0 0 30px rgba(255, 0, 0, 0.9); }
+
+        /* زر الاستمارة */
+        .btn-register {
+            font-size: 1.2rem; padding: 15px 60px; min-width: 280px;
+            border: 3px solid #ffffff; color: #ffffff;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            animation: pulse-white 2s infinite alternate;
+        }
+        .btn-register:hover { background: #ffffff; color: #000000; text-shadow: none; box-shadow: 0 0 30px rgba(255, 255, 255, 0.9); }
+
+        /* الإضافة الجديدة: زر التواصل الأخضر الممتلئ (طول أصغر وبنفس عرض الأزرار الكبيرة) */
+        .btn-contact {
+            font-size: 1.05rem;
+            padding: 8px 60px; /* طول/إرتفاع أصغر */
+            min-width: 280px;  /* نفس عرض القوانين والاستمارة */
+            background-color: #00ff66; /* لون أخضر كامل متعبئ */
+            border: 2px solid #00ff66;
+            color: #000000; /* نص أسود ليكون واضحاً على الخلفية الخضراء */
+            font-weight: 900;
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.4);
+        }
+        .btn-contact:hover {
+            background-color: #00cc52;
+            border-color: #00cc52;
+            box-shadow: 0 0 25px rgba(0, 255, 102, 0.8);
+            transform: scale(1.02);
+        }
+
+        /* أنيميشن نبض الأزرار */
+        @keyframes pulse-red { 0% { box-shadow: 0 0 15px rgba(255, 0, 0, 0.3); } 100% { box-shadow: 0 0 25px rgba(255, 0, 0, 0.6); } }
+        @keyframes pulse-white { 0% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.2); } 100% { box-shadow: 0 0 25px rgba(255, 255, 255, 0.5); } }
+
+        /* تنسيق الأوصاف */
+        .description { color: #aaaaaa; font-size: 0.9rem; margin: 12px 0 0 0; line-height: 1.6; max-width: 450px; display: inline-block; }
+        .laws-warning { color: #ff3333; font-size: 0.95rem; font-weight: bold; margin: 15px auto 0 auto; line-height: 1.6; max-width: 500px; text-shadow: 0 0 5px rgba(255, 51, 51, 0.3); }
+        .register-description { color: #ffffff; font-size: 0.95rem; font-weight: bold; margin: 15px auto 0 auto; line-height: 1.6; max-width: 500px; text-shadow: 0 0 5px rgba(255, 255, 255, 0.3); }
+
+        /* الإضافة الجديدة: تنسيق رابط المطور (عبدالرحمن) بدون مظهر زرار */
+        .developer-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #888888;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        .developer-link:hover {
+            color: #00ff66; /* يضيء بالأخضر النيون الخفيف عند التمرير */
+            text-shadow: 0 0 5px rgba(0, 255, 102, 0.5);
+        }
+
+        /* فوتر حقوق النشر في النهاية تماماً */
+        .footer-rights {
+            background-color: #0a0a0a;
+            color: #666666;
+            text-align: center;
+            padding: 15px 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            border-top: 1px solid #1a1a1a;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-container">
+        <div class="red-line line1"></div>
+        <div class="red-line line2"></div>
+        <div class="red-line line3"></div>
+        <div class="red-line line4"></div>
+        <div class="red-line line5"></div>
+        <div class="red-line line6"></div>
+        <div class="red-line line7"></div>
+        <div class="red-line line8"></div>
+        <div class="red-line line9"></div>
+        <div class="red-line line10"></div>
+    </div>
+
+    <div class="header">
+        <h1 class="union-name">اتحاد | B. M. T. F</h1>
+        
+        <div class="president-word">
+            <h3>📢 كلمة رئيس الاتحاد | ميدو</h3>
+            <p>نؤمن بأن النجاح يبدأ بالعدالة، ويستمر بالالتزام، ويُخلَّد بالإنجاز.<br>
+            هدفنا بناء منافسة شريفة تضمن تكافؤ الفرص وتحفظ حقوق الجميع.</p>
+        </div>
+    </div>
+
+    <div class="section-container">
+        
+        <div class="block-right">
+            <a href="abtal.html" class="btn-link btn-abtal">سجل دورى ابطال اوروبا</a>
+            <br>
+            <p class="description">تعد هذه البطولة هي الركيزة الأساسية والجوهرة التاجية لاتحادنا؛ فهي البطولة الأكثر استمرارية وتنافسية بين النخبة.</p>
+        </div>
+        
+        <div class="block-left">
+            <a href="orobe.html" class="btn-link btn-euro">سجل الدوري الأوروبي</a>
+            <br>
+            <p class="description">منافسة القمة الشرسة والمثيرة، حيث تتصارع الفرق الكبرى والطموحة لإثبات جدارتها وهيبتها على الساحة.</p>
+        </div>
+
+        <div class="block-right">
+            <a href="super.html" class="btn-link btn-super">سجل كأس السوبر</a>
+            <br>
+            <p class="description">موقعة الحسم الكبرى وجهاً لوجه بين بطل دوري الأبطال وبطل الدوري الأوروبي لتحديد زعيم الاتحاد المطلق.</p>
+        </div>
+
+        <div class="block-left">
+            <a href="dorey.html" class="btn-link btn-dorey">سجل أبطال الدوريات</a>
+            <br>
+            <p class="description">صراع الجبابرة والملوك الحقيقيين، حيث يلتقي أبطال الدوريات المختلفة وجهاً لوجه لتتويج الأقوى والأجدر بالصدارة المحلية.</p>
+        </div>
+
+        <div class="block-right">
+            <a href="monthbat.html" class="btn-link btn-monthbat">سجل أمم أفريقيا</a>
+            <br>
+            <p class="description">البطولة القارية الكبرى التي تجمع أقوى المنتخبات والمدربين في مواجهات ملحمية تعتمد على الكبرياء والمهارة الاستراتيجية لرفع راية السمراء.</p>
+        </div>
+
+        <div class="block-left">
+            <a href="ommoroba.html" class="btn-link btn-euroba">سجل أمم أوروبا</a>
+            <br>
+            <p class="description">المحفل الأوروبي العريق الذي يتنافس فيه كبار القارة العجوز في صراع تكتيكي عالي المستوى لخطف اللقب الأغلى للمنتخبات.</p>
+        </div>
+
+        <div class="block-right">
+            <a href="ramdan.html" class="btn-link btn-ramdan">سجل البطولات الرمضانيه</a>
+            <br>
+            <p class="description">بطولات ذات طابع خاص وأجواء حماسية فريدة، تُقام في سهرات الشهر الكريم لتشهد منافسات قوية وذكريات لا تُنسى بين أعضاء الاتحاد.</p>
+        </div>
+
+        <div class="block-left">
+            <a href="qorazahbya.html" class="btn-link btn-ballon-dor">
+                <span class="text-white">الكرة</span> <span class="text-gold">الذهبية</span>
+            </a>
+            <br>
+            <p class="description">الجائزة الفردية الأسمى والأرفع شأناً في الاتحاد، تُمنح للاعب الأسطوري الذي تفوق على الجميع بمهارته وأرقامه الاستثنائية طوال الموسم.</p>
+        </div>
+
+        <div class="block-center" style="margin-top: 60px;">
+            <a href="https://bmtf.my.canva.site/b-m-t-f" target="_blank" class="btn-link btn-laws">القوانين</a>
+            <p class="laws-warning">يجب قراءة القوانين قبل تسجيل او دخول لبطولات الاتحاد</p>
+        </div>
+
+        <div class="block-center">
+            <a href="https://forms.gle/qx5PAkmW45XTZkCSA" target="_blank" class="btn-link btn-register">تسجيل فى الاستمارة</a>
+            <p class="register-description">يجب التسجيل فى الاستمارة لتسجيل فى بطولات الاتحاد</p>
+        </div>
+
+        <div class="block-center">
+            <a href="https://wa.me/201019918877" target="_blank" class="btn-link btn-contact">للتواصل مع رئيس الاتحاد</a>
+            <br>
+            
+            <a href="https://my-profile-xi-tawny.vercel.app/" target="_blank" class="developer-link">
+                المطور » عبدالرحمن احمد / Developer » 3bdo a7med
+            </a>
+        </div>
+
+    </div>
+
+    <footer class="footer-rights">
+        جميع الحقوق محفوظه لموقع اتحاد b. m. t. f
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حامل اللقب - الثيم البرتقالي والأصفر</title>
+    <style>
+        /* إعدادات الخلفية السوداء */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #000000;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* تأثير الشرائط البرتقالية المتساقطة في الخلفية بشكل انسيابي */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255, 68, 0, 0) 0%, rgba(255, 68, 0, 0.04) 50%, rgba(255, 68, 0, 0) 100%),
+                        linear-gradient(90deg, rgba(255, 68, 0, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 100%;
+            pointer-events: none;
+            z-index: 0;
+            animation: rain 20s linear infinite;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin-top: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* تصميم المربع باللون البرتقالي المتوهج */
+        .champion-card {
+            background: #120500; /* أسود مائل للبرتقالي الداكن جداً */
+            border: 2px solid #ff4500; /* برتقالي نيون (OrangeRed) */
+            border-radius: 12px;
+            padding: 18px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 0 15px rgba(255, 69, 0, 0.3), inset 0 0 10px rgba(255, 69, 0, 0.1);
+            position: relative;
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+            user-select: none;
+        }
+
+        /* الاسم باللون البرتقالي المضيء */
+        .champion-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #ff6a00;
+            text-shadow: 0 0 8px rgba(255, 106, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        /* شارة حامل اللقب في اليسار */
+        .title-badge {
+            font-size: 0.95rem;
+            color: #ffffff;
+            background: #ff4500;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            box-shadow: 0 0 8px rgba(255, 69, 0, 0.6);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        /* التاج البرتقالي فوق المربع */
+        .crown-tag {
+            position: absolute;
+            top: -42px;
+            right: 30px;
+            font-size: 2.2rem;
+            /* كود فلتر لتحويل الإيموجي العادي ليتوهج باللون البرتقالي بالكامل */
+            filter: drop-shadow(0 0 8px #ff4500) sepia(1) saturate(20) hue-rotate(-20deg);
+            animation: bounce 2s infinite;
+        }
+
+        /* ================================================== */
+        /* تأثير التوهج والإشعاع باللون الأصفر عند الضغط أو اللمس */
+        /* ================================================== */
+        .champion-card:hover, .champion-card:active {
+            border-color: #ffd700; /* يتحول الإطار للأصفر الذهبي اللامع */
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.8), inset 0 0 12px rgba(255, 215, 0, 0.3);
+            background: #141200; /* خلفية صفراء داكنة جداً للمربع */
+            transform: scale(1.03); /* تأثير حركة تكبير خفيفة */
+        }
+
+        .champion-card:hover .champion-name, .champion-card:active .champion-name {
+            color: #ffff00; /* الاسم يشع باللون الأصفر الفاقع النيون */
+            text-shadow: 0 0 15px #ffff00;
+        }
+
+        .champion-card:hover .title-badge, .champion-card:active .title-badge {
+            background: #ffd700; /* الشارة تتحول للأصفر */
+            color: #000000; /* الكتابة بداخلها تصبح سوداء للوضوح البصري */
+            box-shadow: 0 0 15px #ffd700;
+        }
+
+        /* تحويل لون التاج أيضاً للأصفر عند التفاعل مع المربع */
+        .champion-card:hover .crown-tag, .champion-card:active .crown-tag {
+            filter: drop-shadow(0 0 12px #ffff00) sepia(1) saturate(20) hue-rotate(15deg);
+        }
+        /* ================================================== */
+
+        /* الأنميشن وحركات الخلفية والتاج */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        @keyframes rain {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 1000px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="champion-card">
+        <div class="crown-tag">👑</div>
+        
+        <div class="champion-name">مازن محمد</div>
+        
+        <div class="title-badge">حامل اللقب</div>
+    </div>
+
+</div>
+
+</body>
+</html>
